@@ -3,10 +3,8 @@ import Title from 'antd/lib/typography/Title';
 import './CreatePost.css'
 import { useNavigate } from 'react-router-dom';
 import { ArrowLeftOutlined } from '@ant-design/icons';
-import { deleteUser, listUsers, updateUserRole } from '../services/user';
+import { deleteUser, listRoles, listUsers, updateUserRole } from '../services/user';
 import { useEffect, useState } from 'react';
-
-const rolesList = ['admin', 'creator', 'mod', 'user',]
 
 const getTagByRole = (role) => {
   switch (role) {
@@ -25,11 +23,14 @@ export const ManageUsers = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState([]);
+  const [roles, setRoles]= useState([]);
 
   const fetchUsers = async (values) => {
     setLoading(true);
     const users = await listUsers(values);
+    const rls = await listRoles();
     setData(users);
+    setRoles(rls);
     setLoading(false);
   }
 
@@ -82,7 +83,7 @@ export const ManageUsers = () => {
                 await updateUserRole(record.id, value);
                 await fetchUsers();
               }} defaultValue={record.role} style={{ width: 100 }}>
-                {rolesList.map(role => (
+                {roles.map(role => (
                   <Select.Option key={role} value={role}>{role}</Select.Option>
                 ))}
               </Select>

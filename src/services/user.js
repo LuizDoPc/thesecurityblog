@@ -34,3 +34,7 @@ export const listUsers = async () => {
 export const deleteUser = async () => { }
 
 export const updateUserRole = async () => { }
+
+export const listRoles = async () => {
+  return ['admin', 'creator', 'mod', 'user'];
+}
