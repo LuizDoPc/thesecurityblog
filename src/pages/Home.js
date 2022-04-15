@@ -3,9 +3,10 @@ import { MessageOutlined, ReadOutlined } from '@ant-design/icons';
 import React, { useEffect, useState } from 'react';
 import './Home.css';
 import Title from 'antd/lib/typography/Title';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { LoginForm } from '../components/LoginForm';
 import { listPosts } from '../services/post';
+import { AuthStatus, useAuth } from '../components/AuthProvider';
 
 const IconText = ({ icon, text }) => (
   <Space>
@@ -18,6 +19,11 @@ const IconText = ({ icon, text }) => (
 export const Home = () => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
+  const location = useLocation();
+  const auth = useAuth();
+
+
+  const from = location.state?.from?.pathname || "/";
 
   useEffect(() => {
     (async () => {
@@ -42,7 +48,8 @@ export const Home = () => {
       >
         <>
           <Title>The Security Blog</Title>
-          <LoginForm />
+          {!auth.user && <LoginForm screenToNavigate={from} />}
+          <AuthStatus />
         </>
       </Card>
       <List
