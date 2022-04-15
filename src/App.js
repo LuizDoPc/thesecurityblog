@@ -3,6 +3,7 @@ import './App.css';
 import { AuthProvider, RequireAuth } from './components/AuthProvider';
 import { CreatePost } from './pages/CreatePost';
 import { Home } from './pages/Home';
+import { ManageUsers } from './pages/ManageUsers';
 import { Post } from './pages/Post';
 
 function App() {
@@ -14,6 +15,11 @@ function App() {
         <Route path="createPost" element={
           <RequireAuth>
             <CreatePost />
+          </RequireAuth>
+        } />
+        <Route path="manageUsers" element={
+          <RequireAuth>
+            <ManageUsers />
           </RequireAuth>
         } />
       </Routes>

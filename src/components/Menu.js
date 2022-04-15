@@ -1,4 +1,4 @@
-import { Button } from "antd";
+import { Button, Space } from "antd";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "./AuthProvider";
 
@@ -7,7 +7,7 @@ export const Menu = () => {
     const navigate = useNavigate();
 
     return (
-        <>
+        <Space>
             <Button
                 type="danger"
                 onClick={() => {
@@ -24,6 +24,13 @@ export const Menu = () => {
             >
                 Create Post
             </Button>
-        </>
+            <Button
+                onClick={() => {
+                    navigate('/manageUsers');
+                }}
+            >
+                Manage Users
+            </Button>
+        </Space>
     )
 }
