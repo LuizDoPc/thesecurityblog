@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.css": "/thesecurityblog/static/css/main.6f6a5676.css",
-    "main.js": "/thesecurityblog/static/js/main.695ce4a9.js",
+    "main.css": "/thesecurityblog/static/css/main.16902f35.css",
+    "main.js": "/thesecurityblog/static/js/main.2b4ae418.js",
     "index.html": "/thesecurityblog/index.html",
-    "main.6f6a5676.css.map": "/thesecurityblog/static/css/main.6f6a5676.css.map",
-    "main.695ce4a9.js.map": "/thesecurityblog/static/js/main.695ce4a9.js.map"
+    "main.16902f35.css.map": "/thesecurityblog/static/css/main.16902f35.css.map",
+    "main.2b4ae418.js.map": "/thesecurityblog/static/js/main.2b4ae418.js.map"
   },
   "entrypoints": [
-    "static/css/main.6f6a5676.css",
-    "static/js/main.695ce4a9.js"
+    "static/css/main.16902f35.css",
+    "static/js/main.2b4ae418.js"
   ]
 }
