@@ -13,7 +13,7 @@ export const AuthProvider = ({ children }) => {
     if (storageData) {
       const parsedData = JSON.parse(storageData);
 
-      if (parsedData.user)
+      if (parsedData?.user)
         signin(parsedData, () => { });
     }
   }, []);
