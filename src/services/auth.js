@@ -17,7 +17,9 @@ const AuthServiceProvider = {
         if (data?.user?.id) {
             AuthServiceProvider.isAuthenticated = true;
             callback(data);
+            return true;
         }
+        return false
     },
     signout: async (callback) => {
         AuthServiceProvider.isAuthenticated = false;
