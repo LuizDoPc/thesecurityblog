@@ -36,10 +36,10 @@ export const Register = () => {
       </Card>
 
       <Form layout="vertical" name="nest-messages" onFinish={onFinish} id="form">
-        <Form.Item name="email" type="email">
-          <Input placeholder="email" />
+        <Form.Item name="email" >
+          <Input placeholder="email" type="email" />
         </Form.Item>
-        <Form.Item name="name" type="text">
+        <Form.Item name="name">
           <Input placeholder="name" />
         </Form.Item>
         <Form.Item name="password">

@@ -72,19 +72,23 @@ export const createUser = async (user) => {
   if (creationToken) {
     const regex = /(Para continuar o cadastro do usuário com seu e-mail, acesse o link: )(.+)(\. Caso contrário, apenas desconsidere o e-mail.)/;
     const isolatedToken = creationToken.match(regex)
-    
-    const data = await fetch(`${baseURL}/users`, {
-      method: 'POST',
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        name: user.name,
-        password: user.password,
-        creation_token: isolatedToken[2]
-      })
-    }).then(res => res.json()).catch(err => console.log(err));
 
-    return data;
+    if (isolatedToken) {
+      const data = await fetch(`${baseURL}/users`, {
+        method: 'POST',
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          name: user.name,
+          password: user.password,
+          creation_token: isolatedToken[2]
+        })
+      }).then(res => res.json()).catch(err => console.log(err));
+
+      return data;
+    } else {
+      alert('Não foi possível criar o usuário. Tente novamente mais tarde.');
+    }
   }
 }
