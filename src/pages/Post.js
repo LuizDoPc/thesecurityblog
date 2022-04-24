@@ -53,7 +53,7 @@ export const Post = () => {
           <div style={{ display: 'flex', flexDirection: 'row' }}>
             <Title level={2}>{postData?.title}</Title>
 
-            {auth.user.roles.find(r => r.id === 2) && (
+            {auth?.user?.roles?.find(r => r.id === 2) && (
               <Button
                 type="danger"
                 onClick={async () => {
@@ -69,7 +69,9 @@ export const Post = () => {
           <Paragraph id='post'>
             {postData.content}
           </Paragraph>
-          <CommentForm reloadPost={getPost} postId={postData?.id} />
+
+          {!!auth.user && <CommentForm reloadPost={getPost} postId={postData?.id} />}
+
           <CommentList postId={postData?.id} reloadPost={getPost} data={postData.comments} />
         </>
       )}

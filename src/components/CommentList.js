@@ -28,7 +28,7 @@ export const CommentList = ({ postId, data, reloadPost }) => {
                   <span>{moment(item.datetime).subtract(1, 'days').fromNow()}</span>
                 </Tooltip>
               }
-              actions={auth.user.roles.find(r => r.id === 2) ? [
+              actions={auth?.user?.roles?.find(r => r.id === 2) ? [
                 <Tooltip key="comment-basic-like" title="Delete">
                   <span onClick={async () => {
                     await deleteComment(postId, item.id, token);
