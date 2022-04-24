@@ -21,7 +21,7 @@ export const CommentList = ({ postId, data, reloadPost }) => {
         renderItem={item => (
           <li>
             <Comment
-              author={item.author}
+              author={item.user.name}
               content={item.content}
               datetime={
                 <Tooltip title={moment(item.datetime).subtract(1, 'days').format('YYYY-MM-DD HH:mm:ss')}>
