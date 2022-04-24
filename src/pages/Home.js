@@ -73,10 +73,10 @@ export const Home = () => {
             ]}
           >
             <List.Item.Meta
-              title={<Link to={`post/${item.id}`}>{item.title}</Link>}
+              title={<Link to={`post/${item.id}`}><div dangerouslySetInnerHTML={{ __html: item.title }}/></Link>}
               description={item.description}
             />
-            {item.content}
+            <div dangerouslySetInnerHTML={{ __html: item.content }} />
           </List.Item>
         )}
       />
