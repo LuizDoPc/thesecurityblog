@@ -52,15 +52,18 @@ export const Post = () => {
         <>
           <div style={{ display: 'flex', flexDirection: 'row' }}>
             <Title level={2}>{postData?.title}</Title>
-            <Button
-              type="danger"
-              onClick={async () => {
-                await deletePost(postData.id, token);
-                navigate('/')
-              }}
-              style={{ width: 100, marginLeft: 7, marginTop: 7 }}>
-              Delete
-            </Button>
+
+            {auth.user.roles.find(r => r.id === 2) && (
+              <Button
+                type="danger"
+                onClick={async () => {
+                  await deletePost(postData.id, token);
+                  navigate('/')
+                }}
+                style={{ width: 100, marginLeft: 7, marginTop: 7 }}>
+                Delete
+              </Button>
+            )}
 
           </div>
           <Paragraph id='post'>

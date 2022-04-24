@@ -5,7 +5,7 @@ import { useAuth } from './AuthProvider';
 import { DeleteOutlined } from '@ant-design/icons';
 
 
-export const CommentList = ({postId, data, reloadPost }) => {
+export const CommentList = ({ postId, data, reloadPost }) => {
 
   const auth = useAuth();
   const token = auth.user?.token;
@@ -28,7 +28,7 @@ export const CommentList = ({postId, data, reloadPost }) => {
                   <span>{moment(item.datetime).subtract(1, 'days').fromNow()}</span>
                 </Tooltip>
               }
-              actions={[
+              actions={auth.user.roles.find(r => r.id === 2) ? [
                 <Tooltip key="comment-basic-like" title="Delete">
                   <span onClick={async () => {
                     await deleteComment(postId, item.id, token);
@@ -37,7 +37,7 @@ export const CommentList = ({postId, data, reloadPost }) => {
                     <DeleteOutlined />
                   </span>
                 </Tooltip>
-              ]}
+              ] : []}
             />
           </li>
         )}
