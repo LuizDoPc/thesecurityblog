@@ -51,7 +51,8 @@ export const Post = () => {
       {!loading && postData && (
         <>
           <div style={{ display: 'flex', flexDirection: 'row' }}>
-            <Title level={2}>{postData?.title}</Title>
+            <Title level={2}><div dangerouslySetInnerHTML={{ __html: postData.content }} /></Title>
+             
 
             {auth?.user?.roles?.find(r => r.id === 2) || auth?.user?.id === postData?.author?.id && (
               <Button
@@ -67,7 +68,7 @@ export const Post = () => {
 
           </div>
           <Paragraph id='post'>
-            {postData.content}
+            <div dangerouslySetInnerHTML={{ __html: postData.content }} /> 
           </Paragraph>
 
           {!!auth.user && <CommentForm reloadPost={getPost} postId={postData?.id} />}
