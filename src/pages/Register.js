@@ -13,6 +13,8 @@ export const Register = () => {
   const auth = useAuth();
 
   const onFinish = async (values) => {
+    if (!values.name || !values.email || !values.password)  return 
+    
     setLoading(true);
     await createUser(values, auth.user?.token);
     setLoading(false);
@@ -34,10 +36,10 @@ export const Register = () => {
       </Card>
 
       <Form layout="vertical" name="nest-messages" onFinish={onFinish} id="form">
-        <Form.Item name="email">
+        <Form.Item name="email" type="email">
           <Input placeholder="email" />
         </Form.Item>
-        <Form.Item name="name">
+        <Form.Item name="name" type="text">
           <Input placeholder="name" />
         </Form.Item>
         <Form.Item name="password">
