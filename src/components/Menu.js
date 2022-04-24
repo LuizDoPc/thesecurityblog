@@ -16,21 +16,21 @@ export const Menu = () => {
             >
                 Sign out
             </Button>
-            <Button
+            {auth.user.roles.find(r => r.id === 3) && <Button
                 type="primary"
                 onClick={() => {
                     navigate('/createPost');
                 }}
             >
                 Create Post
-            </Button>
-            <Button
+            </Button>}
+            {auth.user.roles.find(r => r.id === 2) && <Button
                 onClick={() => {
                     navigate('/manageUsers');
                 }}
             >
                 Manage Users
-            </Button>
+            </Button>}
         </Space>
     )
 }

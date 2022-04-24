@@ -1,0 +1,1 @@
+export const baseURL = 'https://the-security-blog.herokuapp.com'

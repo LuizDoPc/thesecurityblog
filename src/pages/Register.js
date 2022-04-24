@@ -1,20 +1,20 @@
 import { Button, Card, Form, Input } from 'antd';
 import Title from 'antd/lib/typography/Title';
-import './CreatePost.css'
+import './Register.css'
 import { useNavigate } from 'react-router-dom';
 import { ArrowLeftOutlined } from '@ant-design/icons';
-import { createPost } from '../services/post';
 import { useState } from 'react';
 import { useAuth } from '../components/AuthProvider';
+import { createUser } from '../services/user';
 
-export const CreatePost = () => {
+export const Register = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const auth = useAuth();
 
   const onFinish = async (values) => {
     setLoading(true);
-    await createPost(values, auth.user?.token);
+    await createUser(values, auth.user?.token);
     setLoading(false);
 
     navigate('/');
@@ -34,13 +34,16 @@ export const CreatePost = () => {
       </Card>
 
       <Form layout="vertical" name="nest-messages" onFinish={onFinish} id="form">
-        <Form.Item name="title" label="Title" rules={[{ required: true }]}>
-          <Input />
+        <Form.Item name="email">
+          <Input placeholder="email" />
+        </Form.Item>
+        <Form.Item name="name">
+          <Input placeholder="name" />
+        </Form.Item>
+        <Form.Item name="password">
+          <Input placeholder="pass" type='password' />
         </Form.Item>
 
-        <Form.Item name="content" label="Content" rules={[{ required: true }]}>
-          <Input.TextArea size='large' />
-        </Form.Item>
         <Form.Item>
           <Button type="primary" htmlType="submit" loading={loading}>
             Submit

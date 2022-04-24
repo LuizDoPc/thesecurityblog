@@ -5,6 +5,7 @@ import { CreatePost } from './pages/CreatePost';
 import { Home } from './pages/Home';
 import { ManageUsers } from './pages/ManageUsers';
 import { Post } from './pages/Post';
+import { Register } from './pages/Register';
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="post/:postId" element={<Post />} />
+        <Route path="/register" element={<Register />} />
         <Route path="createPost" element={
           <RequireAuth>
             <CreatePost />

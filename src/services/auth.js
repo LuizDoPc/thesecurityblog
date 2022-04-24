@@ -1,13 +1,28 @@
-const fakeAuthProvider = {
+import { baseURL } from '../utils/constants'
+
+const AuthServiceProvider = {
     isAuthenticated: false,
-    signin(callback) {
-        fakeAuthProvider.isAuthenticated = true;
-        setTimeout(callback, 2000); 
+    signin: async ({ user, pass }, callback) => {
+        const data = await fetch(`${baseURL}/login`, {
+            method: 'POST',
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                email: user,
+                password: pass
+            })
+        }).then(res => res.json()).catch(err => console.log(err));
+
+        if (data?.user?.id) {
+            AuthServiceProvider.isAuthenticated = true;
+            callback(data);
+        }
     },
-    signout(callback) {
-        fakeAuthProvider.isAuthenticated = false;
-        setTimeout(callback, 2000);
+    signout: async (callback) => {
+        AuthServiceProvider.isAuthenticated = false;
+        callback();
     },
 };
 
-export { fakeAuthProvider };
+export { AuthServiceProvider };

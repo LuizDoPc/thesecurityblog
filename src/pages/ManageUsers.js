@@ -5,30 +5,51 @@ import { useNavigate } from 'react-router-dom';
 import { ArrowLeftOutlined } from '@ant-design/icons';
 import { deleteUser, listRoles, listUsers, updateUserRole } from '../services/user';
 import { useEffect, useState } from 'react';
+import { useAuth } from '../components/AuthProvider';
 
 const getTagByRole = (role) => {
   switch (role) {
-    case 'admin':
-      return 'green'
-    case 'user':
+    case 1:
       return 'geekblue'
-    case 'creator':
+    case 3:
       return 'purple'
-    case 'mod':
+    case 2:
       return 'volcano'
   }
+}
+
+function tagRender(props) {
+  const { label, value, closable, onClose } = props;
+  const onPreventMouseDown = event => {
+    event.preventDefault();
+    event.stopPropagation();
+  };
+  return (
+    <Tag
+      color={getTagByRole(value)}
+      onMouseDown={onPreventMouseDown}
+      closable={closable}
+      onClose={onClose}
+      style={{ marginRight: 3 }}
+    >
+      {label}
+    </Tag>
+  );
 }
 
 export const ManageUsers = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState([]);
-  const [roles, setRoles]= useState([]);
+  const [roles, setRoles] = useState([]);
 
-  const fetchUsers = async (values) => {
+  const auth = useAuth();
+  const token = auth.user?.token;
+
+  const fetchUsers = async () => {
     setLoading(true);
-    const users = await listUsers(values);
-    const rls = await listRoles();
+    const users = await listUsers(token);
+    const rls = await listRoles(token);
     setData(users);
     setRoles(rls);
     setLoading(false);
@@ -66,11 +87,11 @@ export const ManageUsers = () => {
           title: 'Role',
           key: 'role',
           dataIndex: 'role',
-          render: (text, record) => (
-            <Tag color={getTagByRole(record.role)}>
-              {record.role}
+          render: (text, record) => record?.roles?.map(r => (
+            <Tag color={getTagByRole(r.id)}>
+              {r.name}
             </Tag>
-          ),
+          )),
           align: 'center'
         },
         {
@@ -78,18 +99,24 @@ export const ManageUsers = () => {
           key: 'action',
           render: (text, record) => (
             <Space size="middle" direction='vertical'>
-              <Select onChange={async value => {
-                setLoading(true);
-                await updateUserRole(record.id, value);
-                await fetchUsers();
-              }} defaultValue={record.role} style={{ width: 100 }}>
+              <Select
+                mode="multiple"
+                showArrow
+                tagRender={tagRender}
+                onChange={async value => {
+                  setLoading(true);
+                  await updateUserRole(record.id, value, token);
+                  await fetchUsers();
+                }}
+                defaultValue={record.roles.map(o => o.id)}
+                style={{ width: 200 }}>
                 {roles.map(role => (
-                  <Select.Option key={role} value={role}>{role}</Select.Option>
+                  <Select.Option key={role.id} value={role.id}>{role.name}</Select.Option>
                 ))}
               </Select>
               <Button type="danger" onClick={async () => {
                 setLoading(true);
-                await deleteUser(record.id);
+                await deleteUser(record.id, token);
                 await fetchUsers();
               }} style={{ width: 100 }}>Delete</Button>
             </Space>

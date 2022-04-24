@@ -1,5 +1,5 @@
 import { Card, List, Space } from 'antd';
-import { MessageOutlined, ReadOutlined } from '@ant-design/icons';
+import { MessageOutlined, ReadOutlined, UserOutlined} from '@ant-design/icons';
 import React, { useEffect, useState } from 'react';
 import './Home.css';
 import Title from 'antd/lib/typography/Title';
@@ -68,7 +68,8 @@ export const Home = () => {
             key={item.title}
             actions={[
               <Link to={`post/${item.id}`}> <IconText icon={ReadOutlined} text="Ler post" key="list-vertical-details" /></Link>,
-              <IconText icon={MessageOutlined} text="2" key="list-vertical-message" />,
+              <IconText icon={MessageOutlined} text={item.commentCounter} key="list-vertical-message" />,
+              <IconText icon={UserOutlined} text={item.author?.name} key="list-vertical-message" />,
             ]}
           >
             <List.Item.Meta

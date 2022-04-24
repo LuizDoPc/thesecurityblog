@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { Navigate, useLocation, useNavigate } from "react-router-dom";
-import { fakeAuthProvider } from "../services/auth";
+import { AuthServiceProvider } from "../services/auth";
 import { Menu } from "./Menu";
 
 let AuthContext = React.createContext(null);
@@ -24,14 +24,14 @@ export const AuthProvider = ({ children }) => {
   }
 
   let signin = (newUser, callback) => {
-    return fakeAuthProvider.signin(() => {
-      persistUser(newUser);
+    return AuthServiceProvider.signin(newUser, (user) => {
+      persistUser({...user.user, token: user.token, password: newUser.password});
       callback();
     });
   };
 
   let signout = (callback) => {
-    return fakeAuthProvider.signout(() => {
+    return AuthServiceProvider.signout(() => {
       persistUser(null);
       callback();
     });
@@ -64,7 +64,7 @@ export const AuthStatus = () => {
 
   return (
     <div>
-      Welcome {auth.user.user} <br />
+      Welcome {auth.user.name} <br />
       <Menu />
     </div>
   );

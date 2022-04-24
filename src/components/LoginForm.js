@@ -14,8 +14,8 @@ export const LoginForm = ({ screenToNavigate }) => {
   const onFormSubmit = async (values) => {
     setLoading(true);
     await auth.signin({ user: values.user, pass: values.password }, () => {
-      // setLoading(false);
-      // navigate(screenToNavigate, { replace: true })
+      setLoading(false);
+      navigate(screenToNavigate, { replace: true })
     })
   };
 
@@ -33,6 +33,11 @@ export const LoginForm = ({ screenToNavigate }) => {
       </Form.Item>
       <Form.Item>
         <Button loading={loading} type="primary" htmlType="submit">Login</Button>
+      </Form.Item>
+      <Form.Item>
+        <Button loading={loading} type="primary" onClick={() => {
+          navigate('/register', { replace: true })
+        }} >Singup</Button>
       </Form.Item>
     </Form>
   );
