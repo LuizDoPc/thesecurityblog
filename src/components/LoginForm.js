@@ -35,7 +35,7 @@ export const LoginForm = ({ screenToNavigate }) => {
         <Button loading={loading} type="primary" htmlType="submit">Login</Button>
       </Form.Item>
       <Form.Item>
-        <Button loading={loading} type="primary" onClick={() => {
+        <Button type="primary" onClick={() => {
           navigate('/register', { replace: true })
         }} >Singup</Button>
       </Form.Item>
