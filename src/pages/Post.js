@@ -53,7 +53,7 @@ export const Post = () => {
           <div style={{ display: 'flex', flexDirection: 'row' }}>
             <Title level={2}>{postData?.title}</Title>
 
-            {auth?.user?.roles?.find(r => r.id === 2) && (
+            {auth?.user?.roles?.find(r => r.id === 2) || auth?.user?.id === postData?.author?.id && (
               <Button
                 type="danger"
                 onClick={async () => {
